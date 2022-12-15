@@ -44,9 +44,9 @@ for(i = 0 ; i < n - 1; i++)
                 int tmp = A[j];
                 A[j] = A[j+1] ;
                 A[j+1] = tmp;
-            }
         }
     }
+}
 GetArray(n, A);
 min1 = A[0]; min2 = A[1];
 result = min1 + min2;
