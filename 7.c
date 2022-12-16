@@ -48,21 +48,21 @@ void sortByFirstColumn(int n, int m, int matr[][columns]) {
 int main() {
     srand(time(0));
 
-    printf("Enter rows -> ");
+    printf("Введите колл-во строк -> ");
     scanf("%d", &rows);
-    printf("Enter columns -> ");
+    printf("Введите колл-во столбцов -> ");
     scanf("%d", &columns);
 
     int matr[rows][columns];
 
     fill(rows, columns, matr);
-    printf("\nMatrix\n");
+    printf("\nМатрица1\n");
     print(rows, columns, matr);
     printf("\n");
 
     sortByFirstColumn(rows, columns, matr);
 
-    printf("\nMatrix\n");
+    printf("\nМатрица2\n");
     print(rows, columns, matr);
     printf("\n");
 
