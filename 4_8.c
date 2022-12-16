@@ -6,7 +6,7 @@ double f(int n) {
     double a = 0;
     double b = 1.6;
     h = (b-a)/n;
-    for (x = a; x <= 1.6; x += h) {
+    for (y = 0; y < n; y ++) {
         double fun;
         if (x <= 0.6)
             fun = 1/(1 + (25*(x*x)));
