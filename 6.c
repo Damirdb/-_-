@@ -9,7 +9,7 @@ void fill(int n, int a[])
         a[i] = rand () % 101 - 50;
 }
 
-int maximum(int n, int A[])
+int max1(int n, int A[])
 {
     int m, sum;
     m = -120;
@@ -61,7 +61,7 @@ int main()
     int A[n];
     fill(n, A);
     GetArray(n, A);
-    max = maximum(n, A);
+    max = max1(n, A);
     k = sort(n, A);
     otvet = max + k;
     printf("Ответ: %d\n", otvet);
