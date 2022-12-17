@@ -47,7 +47,6 @@ int sort(int n, int A[])
             }
         }
     }
-    GetArray(n, A);
     min1 = A[0]; min2 = A[1];
     result = min1 + min2;
     return result;
