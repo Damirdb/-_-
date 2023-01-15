@@ -2,67 +2,71 @@
 #include <stdlib.h>
 #include <time.h>
 
-void fill(int n, int a[])
-{
+void fillRandom(int* array, int size) {
     int i;
-    for (i = 0; i < n; i++)
-        a[i] = rand () % 101 - 50;
-}
-
-int max1(int n, int A[])
-{
-    int m, sum;
-    m = -120;
-    int k;
-    for (k = 0; k < n-1; k++)
-    {
-        sum = A[k] + A[k + 1];
-        if (sum > m)
-            m = sum;
+    for (i = 0; i < size; ++i) {
+        array[i] = rand () % 101 - 50;
     }
-    return m;
 }
 
-void GetArray(int n, int A[])
-{
+void printArray(int* array, int size) {
     int i;
-    printf("Массив: ");
-    for (i = 0; i < n; i++)
-        printf("%4d", A[i]);
+    for (i = 0; i < size; ++i) {
+        printf("%d ", array[i]);
+    }
     printf("\n");
 }
 
-int sort(int n, int A[])
-{
-    int i, j, min1, min2, result;
-    for(i = 0 ; i < n - 1; i++)
-    {
-        for(j = 0 ; j < n - i - 1 ; j++)
-        {
-            if (A[j] > A[j+1])
-            {
-                int tmp = A[j];
-                A[j] = A[j+1] ;
-                A[j+1] = tmp;
-            }
-        }
+int getMaxSumTwoNeibours(int* array, int size) {
+    int i, max_sum, cur_sum;
+    if (size < 2) {
+        return 0;
     }
-    min1 = A[0]; min2 = A[1];
-    result = min1 + min2;
-    return result;
+    max_sum = array[0] + array[1];
+    for (i = 2; i < size; ++i) {
+        cur_sum = array[i] + array[i - 1];
+        max_sum = cur_sum <= max_sum ? max_sum : cur_sum;
+    }
+    return max_sum;
 }
 
-int main()
-{
+void addToTwoMin(int* array, int size, int value) {
+    int i, first_min, second_min;
+    first_min = 1000000000, second_min = 1000000000;
+    for (i = 0; i < size; ++i) {
+        if (array[i] < first_min) {
+            second_min = first_min;
+            first_min = array[i];
+        } else if (first_min < array[i] && array[i] < second_min) {
+            second_min = array[i];
+        }
+    }
+    for (i = 0; i < size; ++i) {
+        if (array[i] == first_min || array[i] == second_min) {
+            array[i] += value;
+        }
+    }
+}
+
+int main() {
     srand(time(NULL));
-    int n, max, otvet, k;
-    printf("Введи кол-во элементов в массиве -> ");
-    scanf("%d", &n);
-    int A[n];
-    fill(n, A);
-    GetArray(n, A);
-    max = max1(n, A);
-    k = sort(n, A);
-    otvet = max + k;
-    printf("Ответ: %d\n", otvet);
+
+    int size, max_sum;
+    printf("Размер массива  -> ");
+    scanf("%d", &size);
+
+    int array[size];
+    fillRandom(array, size);
+
+    printf("\nисходный массив: ");
+    printArray(array, size);
+
+    max_sum = getMaxSumTwoNeibours(array, size);
+    printf("максимальная сумма двух соседей: %d\n", max_sum);
+    addToTwoMin(array, size, max_sum);
+
+    printf("результат массива: ");
+    printArray(array, size);
+
+    return 0;
 }
