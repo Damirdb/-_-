@@ -26,16 +26,16 @@ typedef struct IntercityBus_ {
 
 
 void inputBus(IntercityBus* bus) {
-    printf("Number -> ");
+    printf("Номер -> ");
     scanf("%d", &bus->number);
     fflush(stdin);
-    printf("Departure -> ");
+    printf("Отправление  -> ");
     saveGets(bus->departure, 30, stdin);
-    printf("Departure time -> ");
+    printf("Время отправления -> ");
     saveGets(bus->departure_time, 20, stdin);
-    printf("Destination -> ");
+    printf("Место назначения -> ");
     saveGets(bus->destination, 30, stdin);
-    printf("Arrival time -> ");
+    printf("Время прибытия -> ");
     saveGets(bus->arrival_time, 20, stdin);
 }
 
@@ -63,60 +63,60 @@ void writeBus(IntercityBus* bus, FILE* fp) {
 
 
 void printMenu() {
-    printf("1. Add record\n");
-    printf("2. Delete record\n");
-    printf("3. Show all records\n");
-    printf("4. Show records destination\n");
-    printf("0. Exit\n");
+    printf("1. Добавить запись\n");
+    printf("2. Удалить запись\n");
+    printf("3. Показать все записи\n");
+    printf("4. Показать назначение записей\n");
+    printf("0. Выход\n");
     printf("-> ");
 }
 
 
 int addBus(IntercityBus* buses, int n) {
-    printf("\nEnter information about bus\n");
+    printf("\nВвод информации о автобусе\n");
     inputBus(buses + n);
-    printf("\nRecord added\n\n");
+    printf("\nДобавлена запись\n\n");
     return n + 1;
 }
 
 
 int deleteBus(IntercityBus* buses, int n) {
     if (n == 0) {
-        printf("\nList of bused is empty!\n\n");
+        printf("\nСписок автобусов пуст!\n\n");
         return n;
     }
     int index, i;
 
-    printf("\nEnter number to delete (1, %d) -> ", n);
+    printf("\nВходной номер удален (1, %d) -> ", n);
     scanf("%d", &index);
     --index;
     if (index < 0 || index >= n) {
-        printf("Incorect number\n\n");
+        printf("Неправильный номер\n\n");
         return n;
     }
 
     for (i = index; i + 1 < n; ++i) {
         buses[i] = buses[i + 1];
     }
-    printf("Record deleted\n\n");
+    printf("Запись удалена\n\n");
     return n - 1;
 }
 
 
 void printBuses(IntercityBus* buses, int n) {
     if (n == 0) {
-        printf("\nList of bused is empty!\n\n");
+        printf("\nСписок автобусов пуст!\n\n");
         return;
     }
     int i;
-    printf("\nBuses\n");
+    printf("\nАвтобусы\n");
     printf("| %2s | %7s | %20s | %20s | %20s | %20s |\n",
            "#",
-           "Number",
-           "Departure",
-           "Destination",
-           "Depart time",
-           "Arrival time"
+           "Номер",
+           "Отправление",
+           "Место назначения",
+           "Время отправления",
+           "Время прибытия"
     );
     for (i = 0; i < n; ++i) {
         printf("| %2d | %7d | %20s | %20s | %20s | %20s |\n",
@@ -134,13 +134,13 @@ void printBuses(IntercityBus* buses, int n) {
 
 void printByDestination(IntercityBus* buses, int n) {
     if (n == 0) {
-        printf("\nList of bused is empty!\n\n");
+        printf("\nСписок автобусов пуст!\n\n");
         return;
     }
     char destination[30];
     int i, cnt = 0;
 
-    printf("\nEnter destination -> ");
+    printf("\nПункт назначения -> ");
     saveGets(destination, 30, stdin);
 
     for (i = 0; i < n; ++i) {
@@ -149,13 +149,13 @@ void printByDestination(IntercityBus* buses, int n) {
         }
     }
     if (i == n) {
-        printf("No buses with destination '%s'\n\n", destination);
+        printf("Нет автобусов с пунктом назначения '%s'\n\n", destination);
         return;
     }
-    printf("Buses\n");
+    printf("Автобусы\n");
     printf("| %2s | %7s | %20s | %20s | %20s | %20s |\n",
-           "#", "Number", "Departure", "Destination",
-           "Depart time", "Arrival time");
+           "#", "Номер", "Отправление", "Место назначения",
+           "Время отправления", "Время прибытия");
     for (; i < n; ++i) {
         if (strcmp(destination, buses[i].destination) != 0) {
             continue;
@@ -226,10 +226,10 @@ int main() {
             printByDestination(buses, nbuses);
             break;
         case 0:
-            printf("\nBye\n");
+            printf("\nДосвидание\n");
             break;
         default:
-            printf("\nWrong command!\n\n");
+            printf("\nНеверная команда!\n\n");
             break;
         }
 
