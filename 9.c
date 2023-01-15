@@ -1,63 +1,47 @@
 #include <stdio.h>
 #include <string.h>
 
-int countword(char *s, char *w)
-{
-    char t[50];
-    int i, n = 0, k = 0;
-    for (i = 0; i <= strlen(s); i++)
-    {
-        if (s[i] == ' ' || s[i] == '\0')
-        {
-            t[n] = '\0';
-            if (strcmp(t, w) == 0)
-            {
-                k++;
-            }
-            n = 0;
-        }
-        else
-        {
-            t[n] = s[i];
-            n++;
-        }
-    }
-    return k;
-}
+int main() {
+    char str[128] = { 0 }, * pword, delim[] = " ";
+    char words[128][128] = { 0 };
+    int nwords = 0, i, j, is_unique, nuniq = 0;
 
-void uniqueword(char *s)
-{
-    char w[50];
-    int i, n = 0;
-    for (i = 0; i <= strlen(s); i++)
-    {
-        if (s[i] == ' ' || s[i] == '\0')
-        {
-            if (n != 0)
-            {
-                w[n] = '\0';
-                if (countword(s, w) == 1)
-                {
-                    printf("%s ", w);
-                }
-                n = 0;
+    printf("Вводная строка -> ");
+    scanf("%1024[^\n]s", str);
+
+    if ((pword = strtok(str, delim))) {
+        strcpy(words[nwords++], pword);
+    }
+    while ((pword = strtok(NULL, delim))) {
+        strcpy(words[nwords++], pword);
+    }
+
+    for (i = 0; i + 1 < nwords; ++i) {
+        is_unique = 1;
+        for (j = i + 1; j < nwords; ++j) {
+            if (strcmp(words[i], words[j]) == 0) {
+                is_unique = 0;
+                words[j][0] = '\0';
             }
         }
-        else
-        {
-            w[n] = s[i];
-            n++;
+        if (is_unique) {
+            ++nuniq;
+        } else {
+            words[i][0] = '\0';
         }
     }
-}
 
-int main()
-{
-    char s[100];
-    printf("Введите строку:");
-    if (scanf("%[^\n]%*c", s) != 0)
-    {
-        uniqueword(s);
+    if (nuniq != 0) {
+        printf("\nуникальные слова: ");
+        for (i = 0; i < nwords; ++i) {
+            if (words[i][0] != '\0') {
+                printf("%s ", words[i]);
+            }
+        }
         printf("\n");
+    } else {
+        printf("\nнет уникальных слов\n");
     }
+
+    return 0;
 }
