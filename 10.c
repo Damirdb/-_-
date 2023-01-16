@@ -77,9 +77,9 @@ int main() {
     srand(time(0));
 
     int rows, columns;
-    printf("Enter rows -> ");
+    printf("Введите строку -> ");
     scanf("%d", &rows);
-    printf("Enter columns -> ");
+    printf("Введите столбец -> ");
     scanf("%d", &columns);
 
     int** matr = allocMemory(rows, columns);
